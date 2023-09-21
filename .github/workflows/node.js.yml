@@ -47,7 +47,7 @@ jobs:
         with:
           name: webpack artifact
           path: public/
-      - uses: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
       - uses: actions/setup-node@v1
         with:
           node-version:  ${{ matrix.node-version }}
