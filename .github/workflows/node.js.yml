@@ -10,6 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
@@ -22,6 +23,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/upload-artifact@main
+      with:
+        name: webpack artifact
+        path: public/
     - name: Use Node.js ${{ matrix.node-version }}
     - uses: actions/setup-node@v3
       with:
@@ -30,17 +35,17 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - uses: actions/upload-artifact@main
-      with:
-        name: webpack artifact
-        path: public/
+    
   test:
+  
     needs: build
     runs-on: ${{ matrix.os }}
+    
     strategy:
       matrix:
         os: [ubuntu-latest, windows-2016]
         node-version: [8.x, 10.x]
+        
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@main
@@ -52,7 +57,7 @@ jobs:
         with:
           node-version:  ${{ matrix.node-version }}
       - name: npm install and test
-        run: |
+      - run: |
           npm install
           npm test
         env:
