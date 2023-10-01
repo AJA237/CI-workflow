@@ -2,7 +2,7 @@ name: Build Test Deploy
 on: push
 jobs:
   build: 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check out the repository code
         uses: actions/checkout@v3
